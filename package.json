@@ -1,0 +1,123 @@
+{
+    "name": "template",
+    "version": "0.0.1",
+    "description": "Template for nodejs app with fastify",
+    "main": "app.js",
+    "docker_image": "samuray/template",
+    "scripts": {
+        "prepare": "rimraf ./.husky && husky install && npm run prepare:commitlint",
+        "prepare:commitlint": "npx husky add .husky/commit-msg \"npx --no-install commitlint --config _common/configs/commitlint.js --edit $1 --verbose\"",
+        "up": "ncu --reject ajv && ncu --reject ajv -u && rimraf ./package-lock.json && rimraf ./.husky && npm i && ncu --reject ajv",
+        "ncu": "ncu --reject ajv",
+        "cz": "git add . && git cz",
+        "pub": "npm run build && npm publish ./dist",
+        "build": "rimraf ./dist && tsc --project ./tsconfig.json && json-key-remover && files-copier -e build",
+        "start": "node ./dist/app.js --config ./config.toml",
+        "start:dev": "ts-node ./src/app.ts --config ./config.toml",
+        "test:e2e": "start-server-and-test test:e2e:start_server http-get://localhost:3000/api/healthcheck test:e2e:testing",
+        "test:e2e:start_server": "ts-node ./src/app.ts --config ./tests/e2e/config.toml",
+        "test:e2e:testing": "jest --config ./tests/e2e.config.json",
+        "test": "npm run test:e2e",
+        "docker:build": "npm run build && files-copier -e docker:build && node ./docker-build/build.js",
+        "docker:push:version": "node ./docker-build/push_version.js",
+        "docker:push:latest": "node ./docker-build/push_latest.js",
+        "docker:tag": "node ./docker-build/tag.js",
+        "docker": "npm run docker:build && npm run docker:tag && npm run docker:push:version && npm run docker:push:latest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/practic-report/template.git"
+    },
+    "keywords": [
+        "typescript",
+        "fastify",
+        "template"
+    ],
+    "author": "Nuzhnov A.A.",
+    "license": "GNU GPLv3",
+    "bugs": {
+        "url": "https://github.com/practic-report/template/issues"
+    },
+    "homepage": "https://github.com/practic-report/template.git#readme",
+    "devDependencies": {
+        "@commitlint/cli": "^13.1.0",
+        "@types/chai": "^4.2.21",
+        "@types/chalk": "^2.2.0",
+        "@types/jest": "^26.0.24",
+        "@types/node": "^16.4.1",
+        "@types/node-fetch": "^2.5.12",
+        "@typescript-eslint/eslint-plugin": "^4.28.4",
+        "@typescript-eslint/parser": "^4.28.4",
+        "chai": "^4.3.4",
+        "commitizen": "^4.2.4",
+        "cz-customizable": "^6.3.0",
+        "eslint": "^7.31.0",
+        "files-copier": "^0.1.1",
+        "husky": "^7.0.1",
+        "jest": "^27.0.6",
+        "json-key-remover": "^0.0.3",
+        "node-fetch": "^2.6.1",
+        "npm-check-updates": "^11.8.3",
+        "rimraf": "^3.0.2",
+        "start-server-and-test": "^1.13.0",
+        "ts-jest": "^27.0.4",
+        "ts-node": "^10.1.0",
+        "typescript": "^4.3.5"
+    },
+    "remover": {
+        "target": "./package.json",
+        "destination": "./dist/package.json",
+        "remove": [
+            "remover",
+            "devDependencies",
+            "main",
+            "scripts",
+            "keywords",
+            "homepage",
+            "bugs",
+            "copier",
+            "config"
+        ]
+    },
+    "copier": {
+        "build": {
+            "rewrite": true,
+            "copy": [
+                {
+                    "from": "./package-lock.json",
+                    "to": "./dist/package-lock.json"
+                }
+            ]
+        },
+        "docker:build": {
+            "rewrite": true,
+            "copy": [
+                {
+                    "from": "./dist",
+                    "to": "./docker-build/app"
+                },
+                {
+                    "from": "./dist/package.json",
+                    "to": "./docker-build/package.json"
+                }
+            ]
+        }
+    },
+    "config": {
+        "commitizen": {
+            "path": "node_modules/cz-customizable"
+        },
+        "cz-customizable": {
+            "config": "_common/configs/commitizen.js"
+        }
+    },
+    "dependencies": {
+        "ajv": "^6.12.6",
+        "chalk": "^4.1.1",
+        "commander": "^8.0.0",
+        "fastify-helpers": "^0.1.5",
+        "fastify-small-logger": "^1.4.4",
+        "json-from-default-schema": "^1.0.0",
+        "jtomler": "^1.0.1"
+    }
+}
