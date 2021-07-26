@@ -74,9 +74,7 @@ const validate = ajv.compile(config_schema);
 if (!validate(config)) {
     console.error(`${chalk.red("ERROR")} Config schema errors:`);
     for (const item of validate.errors) {
-
-console.log(item);
-        //console.error(`  - Key ${chalk.yellow(item.instancePath.replace(/\//, "").replace(/\//g, "."))} ${item.message}`);
+        console.error(`  - Key ${chalk.yellow(item.dataPath.replace(/\./g, ""))} ${item.message}`);
     }
     process.exit(1);
 }
