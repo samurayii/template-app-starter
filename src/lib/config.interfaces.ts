@@ -1,6 +1,6 @@
 import { IFastifySmallLoggerConfig } from "fastify-small-logger";
 
-export type TApiServerConfig = {
+export type IApiServerConfig = {
     enable: boolean
     port: number
     hostname: string
@@ -14,5 +14,5 @@ export type TApiServerConfig = {
 
 export interface IAppConfig {
     logger: IFastifySmallLoggerConfig
-    api: TApiServerConfig
+    api: IApiServerConfig
 }
