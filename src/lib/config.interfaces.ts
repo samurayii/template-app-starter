@@ -1,4 +1,4 @@
-import { TFastifySmallLoggerConfig } from "fastify-small-logger";
+import { IFastifySmallLoggerConfig } from "fastify-small-logger";
 
 export type TApiServerConfig = {
     enable: boolean
@@ -13,6 +13,6 @@ export type TApiServerConfig = {
 }
 
 export interface IAppConfig {
-    logger: TFastifySmallLoggerConfig
+    logger: IFastifySmallLoggerConfig
     api: TApiServerConfig
 }
