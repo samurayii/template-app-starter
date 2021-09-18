@@ -38,7 +38,7 @@ const program = new Command();
 const pkg = findPkg();
 
 if (pkg === undefined) {
-    console.error(`${chalk.red("ERROR")} package.json not found`);
+    console.error(`${chalk.bgRed(" FATAL ")} package.json not found`);
     process.exit(1);
 }
 
@@ -62,7 +62,7 @@ if (process.env["TEMPLATE_CONFIG_PATH"] === undefined) {
 const full_config_path = path.resolve(process.cwd(), options.config);
 
 if (!fs.existsSync(full_config_path)) {
-    console.error(`${chalk.red("ERROR")} Config file ${full_config_path} not found`);
+    console.error(`${chalk.bgRed(" FATAL ")} Config file ${full_config_path} not found`);
     process.exit(1);
 }
 
@@ -72,7 +72,7 @@ const ajv = new Ajv();
 const validate = ajv.compile(config_schema);
 
 if (!validate(config)) {
-    console.error(`${chalk.red("ERROR")} Config schema errors:`);
+    console.error(`${chalk.bgRed(" FATAL ")} Config schema errors:`);
     for (const item of validate.errors) {
         console.error(`  - Key ${chalk.yellow(item.dataPath.replace(/^\./g, ""))} ${item.message}`);
     }
