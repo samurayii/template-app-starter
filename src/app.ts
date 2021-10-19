@@ -2,7 +2,6 @@ import config from "./lib/init";
 import fastify, { FastifyInstance } from "fastify-helpers";
 import * as chalk from "chalk";
 import { FastifySmallLogger } from "fastify-small-logger";
-import { FastifyLoggerInstance } from "fastify";
 
 import "./http";
 
@@ -18,8 +17,14 @@ const bootstrap = async () => {
 
         if (config.api.enable === true) {
 
+            const api_server_logger = logger.child("api-server");
+
+            if (config.api.logging === false) {
+                api_server_logger.disable();
+            }
+
             api_server = fastify({
-                logger: <FastifyLoggerInstance>logger.child("api-server"),
+                logger: api_server_logger,
                 trustProxy: config.api.trust_proxy,
                 connectionTimeout: config.api.connection_timeout,
                 bodyLimit: config.api.body_limit,
@@ -39,7 +44,6 @@ const bootstrap = async () => {
         }
 
         const stop_app = async () => {
-            await api_server?.close();
             process.exit();
         };
 

@@ -82,6 +82,11 @@
                     "default": false,
                     "env": "TEMPLATE_API_ENABLE"
                 },
+                "logging": {
+                    "type": "boolean",
+                    "default": false,
+                    "env": "TEMPLATE_API_LOGGING"
+                },
                 "hostname": {
                     "type": "string",
                     "default": "0.0.0.0",
@@ -142,7 +147,8 @@
                 "connection_timeout",
                 "keep_alive_timeout",
                 "body_limit",
-                "trust_proxy"
+                "trust_proxy",
+                "logging"
             ]
         }
     },

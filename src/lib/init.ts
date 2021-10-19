@@ -52,7 +52,7 @@ const options = program.opts();
 
 if (process.env["TEMPLATE_CONFIG_PATH"] === undefined) {
 	if (options.config === undefined) {
-		console.error(`${chalk.red("ERROR")} Not set --config key`);
+		console.error(`${chalk.bgRed(" FATAL ")} Not set --config key`);
 		process.exit(1);
 	}
 } else {
@@ -68,7 +68,7 @@ if (!fs.existsSync(full_config_path)) {
 
 const config: IAppConfig = <IAppConfig>json_from_schema(jtomler.parseFileSync(full_config_path), config_schema);
 
-const ajv = new Ajv();
+const ajv = new Ajv({allErrors: true});
 const validate = ajv.compile(config_schema);
 
 if (!validate(config)) {

@@ -2,6 +2,7 @@ import { IFastifySmallLoggerConfig } from "fastify-small-logger";
 
 export type IApiServerConfig = {
     enable: boolean
+    logging: boolean
     port: number
     hostname: string
     backlog: number
