@@ -54,7 +54,6 @@
         "ts-jest": "^27.0.7"
     },
     "devDependencies": {
-        "@types/chalk": "^2.2.0",
         "@types/node": "^16.11.7",
         "@types/node-fetch": "^2.5.12",
         "files-copier": "^0.1.1",
