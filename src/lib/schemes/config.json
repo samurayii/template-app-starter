@@ -98,7 +98,8 @@
                     "type": "integer",
                     "default": 3001,
                     "env": "TEMPLATE_API_PORT",
-                    "minimum": 1
+                    "minimum": 1,
+                    "maximum": 65535
                 },
                 "prefix": {
                     "type": "string",
