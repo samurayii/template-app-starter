@@ -22,7 +22,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/practic-report/template.git"
+        "url": "git+https://github.com/samurayii/template-app-starter.git"
     },
     "keywords": [
         "typescript",
@@ -32,9 +32,9 @@
     "author": "Nuzhnov A.A.",
     "license": "GNU GPLv3",
     "bugs": {
-        "url": "https://github.com/practic-report/template/issues"
+        "url": "https://github.com/samurayii/template-app-starter/issues"
     },
-    "homepage": "https://github.com/practic-report/template.git#readme",
+    "homepage": "https://github.com/samurayii/template-app-starter.git#readme",
     "optionalDependencies": {
         "@types/chai": "^4.2.22",
         "@commitlint/cli": "^14.1.0",
